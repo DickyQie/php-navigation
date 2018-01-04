@@ -1,0 +1,55 @@
+<script>
+    $(function(){
+        var controller_name = "{:CONTROLLER_NAME}";
+        var nav     = $('.nav-second-level a');
+        nav.each(function(){
+            var url = $(this).attr('href');
+            console.log(url);
+            if(url.indexOf('/'+controller_name) > 0){
+                $(this).parent().addClass('active');
+                return false;
+            }
+        });
+    });
+</script>
+
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav" id="side-menu">
+            <li class="nav-header" style="padding: 25px 20px;">
+                <div class="dropdown profile-element">
+                    <span>
+                        <img alt="image" class="img-circle" height="60px" src="__PUBLIC__/images/login.png" />
+                    </span>
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
+                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold"><{$Think.session.adminname}></strong>
+                         </span>  <span class="text-muted text-xs block"><eq name="Think.session.adminid" value="1">超级管理员<else/>管理员</eq> <b class="caret"></b></span> </span>
+                    </a>
+                    <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                        <li><a href="<{:U('Index/changePassword')}>">修改密码</a></li>
+                        <li class="divider"></li>
+                        <li><a href="<{:U('Public/logout')}>">安全退出</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="logo-element">
+                    MR
+                </div>
+            </li>
+            <li class="active">
+                <a href="#"><i class="fa fa-edit" style="width: 18px"></i> <span class="nav-label">管理</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li><a href="<{:U('HighLevel/lists')}>">高级分类</a></li>
+                    <li><a href="<{:U('MiddleLevel/lists')}>">中级分类</a></li>
+                    <li><a href="<{:U('ElementaryLevel/lists')}>">初级分类</a></li>
+                    <li><a href="<{:U('Datalist/lists')}>">数据管理</a></li>
+                    <li><a href="<{:U('Hot/lists')}>">热门管理</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+
+
+
