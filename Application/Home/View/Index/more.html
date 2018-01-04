@@ -1,0 +1,30 @@
+<include file="Common/header" />
+
+<include file="Common/top" />
+<div  id="doc">
+    <div  id="bd">
+        <empty name="moda">
+            <div class="mod-content clearfix">
+                <div class="content-con content-con-first">
+                暂无数据
+                </div>
+            </div>
+        <else/>
+            <foreach name="moda" item="vo" key="key">
+                <div class="mod-content clearfix">
+                    <div class="content-con content-con-first">
+                        <h2 class="content-title"><{$key}></h2>
+                        <ul class="content-link">
+                            <volist name="vo" id="more">
+                                <li>
+                                    <h3><div><a href="<{$more.href}>" target="_blank" class="text-con"><{$more.title}></a></div></h3>
+                                </li>
+                            </volist>
+                        </ul>
+                    </div>
+                </div>
+            </foreach>
+        </empty>
+    </div>
+</div>
+<include file="Common/footer"/>
