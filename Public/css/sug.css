@@ -1,0 +1,25 @@
+.sug-wrap {
+	position:absolute;
+	top:27px;
+	left:0;
+	border:1px solid #aaa;
+	background:#fff;
+	width:347px;
+	color:#444;
+	z-index:999;
+}
+.sug-shim{ position:absolute; top:-1px; left:-1px; z-index:-1; filter:alpha(opacity="0");
+	width:403px;
+	height:232px;
+}
+.sug-wrap ol{ font:bold 14px/21px verdana; cursor:default;}
+.sug-wrap li{ padding:1px 6px;}
+.sug-wrap .sug-select{ background:#E2EAFF;}
+.sug-wrap .top{ font-weight:normal; color:#999; height:21px; line-height:21px; background:#eee; padding:0 2px;}
+.sug-wrap .bot{ position:relative; height:19px; line-height:19px; font-weight:normal; border-top:1px solid #666;}
+.sug-wrap .sug-query{ font-weight:normal;}
+.sug-wrap .sug-querynull{ font-weight:normal;}
+.sug-wrap .sug-close{ position:absolute; right:0; cursor:pointer; background:#CCF;}
+#masthead{overflow:visible;_overflow:hidden;}
+#hd{z-index:999;}
+.baidu-search-con .search-wraper{position:static;}
