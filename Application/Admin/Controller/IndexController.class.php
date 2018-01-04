@@ -26,7 +26,7 @@ class IndexController extends BaseController{
 			if ($old_password===$admin['password']){
 				
 				//$adminupdate = M('admin')->where(array('id'=>$admin_id))->setField('password',$new_password); //更改密码
-				$adminupdate=M('admin')->where('id='+$admin_id)->setField('password',$new_password);
+				$adminupdate=M('admin')->where('id='.$admin_id)->setField('password',$new_password);
 				if ($adminupdate){
 					$res['status']=1;
 					$res['message']='修改密码成功';
