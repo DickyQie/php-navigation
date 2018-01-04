@@ -1,0 +1,100 @@
+<extend name="Common/common" />
+<block name="main">
+    <div id="page-wrapper" class="gray-bg dashbard-1">
+        <include file="Common/nav-header"/> <!--顶部-->
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>添加初级分类</h5>
+                </div>
+                <div class="ibox-content">
+                    <form class="form-horizontal m-t " method="post" action="<{:U('add')}>">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">所属高级类别：</label>
+                            <div class="col-sm-6">
+                                <select id="high_id">
+                                    <option value="0">请选择高级类别</option>
+                                    <foreach name="high_level" item="vo">
+                                        <option value="<{$vo.id}>"><{$vo.high_name}></option>
+                                    </foreach>
+                                </select>
+                                <select name="middle_id" id="middle_id">
+                                    <option value="0">请选择中级类别</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!--<div class="form-group">-->
+                            <!--<label class="col-sm-3 control-label">所属中级类别：</label>-->
+                            <!--<div class="col-sm-9">-->
+                                <!--<select name="middle_id" id="middle_id">-->
+                                    <!--<option value="0">请选择中级类别</option>-->
+                                    <!--<foreach name="middle_level" item="vo">-->
+                                        <!--<option value="{$vo.id}" <if condition="($vo.id eq $data['middle_id'])">selected</if> >{$vo.middle_name}</option>-->
+                                    <!--</foreach>-->
+                                <!--</select>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">名称：</label>
+                            <div class="col-sm-3">
+                                <input  type="text" id="elementary_name" class="form-control" name="elementary_name" value="<{$data.elementary_name}>">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">排序：</label>
+                            <div class="col-sm-3">
+                                <input  type="text" id="sort" class="form-control" name="sort" value="<{$data.sort}>">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-3">
+                                <input type="hidden" name='id' value="<{$_GET['id']}>">
+                                <button class="btn btn-primary" type="submit">提交</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--尾部-->
+        <include file="Common/admin:footer"/>
+    </div>
+
+<script>
+    $(document).ready(function(){
+        $('#high_id').change(function(){
+            var high_id = $('#high_id').val();
+            $.ajax({
+                type:"POST",
+                url:"<{:U('get_middle_info')}>",
+                data:{'high_id':high_id},
+                datatype:"text",
+                success:function(data){
+                    if(data != ''){
+                        $('#middle_id').show();
+                        $('#middle_id').empty();
+                        $('#middle_id').append(data);
+                    }else{
+                        $('#middle_id').empty();
+                        $('#middle_id').hide();
+                    }
+                }
+            });
+        });
+
+    });
+    $('form').submit(function(){
+        var name = $('#high_name').val();
+        var sort = $("#sort").val();
+        if(name == ''){
+            layer.msg('请填写名称',{time:1000});
+            return false;
+        }
+        if(!sort || isNaN(sort)){
+            layer.msg('请填写排序，并且为数字',{time:1000});
+            return false;
+        }
+    });
+</script>
+</block>
+
