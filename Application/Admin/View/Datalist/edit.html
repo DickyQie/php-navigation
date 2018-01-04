@@ -1,0 +1,140 @@
+<extend name="Common/common" />
+<block name="main">
+    <div id="page-wrapper" class="gray-bg dashbard-1">
+        <include file="Common/nav-header"/> <!--顶部-->
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>添加初级类别</h5>
+                </div>
+                <div class="ibox-content">
+                    <form class="form-horizontal m-t " method="post" action="<{:U('edit')}>">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">所属高级类别：</label>
+                            <div class="col-sm-9">
+                                <select id="high_id" name="high_id">
+                                    <option value="0">请选择高级类别</option>
+                                    <foreach name="high_level" item="vo">
+                                        <option value="<{$vo.id}>" <if condition="($vo.id eq $data['high_id'])">selected</if> ><{$vo.high_name}></option>
+                                    </foreach>
+                                </select>
+                                <select id="middle_id" name="middle_id" onchange="get_elementary_info()">
+                                    <option value="0">请选择中级类别</option>
+                                    <foreach name="middle_level" item="vo">
+                                        <option value="<{$vo.id}>" <if condition="($vo.id eq $data['middle_id'])">selected</if> ><{$vo.middle_name}></option>
+                                    </foreach>
+                                </select>
+                                <select name="elementary_id" id="elementary_id">
+                                    <option value="0">请选择初级类别</option>
+                                    <foreach name="elementary_level" item="vo">
+                                        <option value="<{$vo.id}>" <if condition="($vo.id eq $data['elementary_id'])">selected</if> ><{$vo.elementary_name}></option>
+                                    </foreach>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">名称：</label>
+                            <div class="col-sm-3">
+                                <input  type="text" id="title" class="form-control" name="title" value="<{$data.title}>">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">链接地址：</label>
+                            <div class="col-sm-3">
+                                <input  type="text" id="href" class="form-control" name="href" value="<{$data.href}>">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">是否推荐：</label>
+                            <div class="col-sm-6">
+                                <input type="radio" name="is_recommend" value="0" <if condition="($data.is_recommend neq 1)"> checked </if> > 否
+                                <input type="radio" name="is_recommend" value="1" <if condition="($data.is_recommend eq 1)" > checked </if> > 是
+                                <span style="color:indianred">（推荐后，会在首页右侧显示）</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">是否热门：</label>
+                            <div class="col-sm-6">
+                                <input type="radio" name="is_hot" value="0" <if condition="($data.is_hot neq 1)"> checked </if> > 否
+                                <input type="radio" name="is_hot" value="1" <if condition="($data.is_hot eq 1)" > checked </if> > 是
+                                <span style="color:indianred">（热门的数据，首页颜色不同）</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">排序：</label>
+                            <div class="col-sm-3">
+                                <input  type="text" id="sort" class="form-control" name="sort" value="<{$data.sort}>">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-3">
+                                <input type="hidden" name='id' value="<{$_GET['id']}>">
+                                <button class="btn btn-primary" type="submit">提交</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--尾部-->
+        <include file="Common/admin:footer"/>
+    </div>
+    <script>
+        $('#high_id').change(function () {
+            var high_id = $('#high_id').val();
+            $.ajax({
+                type: "POST",
+                url: "<{:U('get_middle_info')}>",
+                data: {'high_id': high_id},
+                datatype: "text",
+                success: function (data) {
+                    if (data != '') {
+                        $('#middle_id').show();
+                        $('#middle_id').empty();
+                        $('#middle_id').append(data);
+                        get_elementary_info();
+                    } else {
+                        $('#middle_id').hide();
+                        $('#middle_id').empty();
+                        $('#elementary_id').hide();
+                        $('#elementary_id').empty();
+                    }
+                }
+            });
+        });
+
+        function get_elementary_info(){
+            var middle_id = $('#middle_id').val();
+            $.ajax({
+                type:"POST",
+                url:"<{:U('get_elementary_info')}>",
+                data:{'middle_id':middle_id},
+                datatype:"text",
+                success:function(data){
+                    if(data != ''){
+                        $('#elementary_id').show();
+                        $('#elementary_id').empty();
+                        $('#elementary_id').append(data);
+                    }else{
+                        $('#elementary_id').hide();
+                        $('#elementary_id').empty();
+                    }
+                }
+            });
+        }
+
+        $('form').submit(function(){
+            var name = $('#high_name').val();
+            var sort = $("#sort").val();
+            if(name == ''){
+                layer.msg('请填写名称',{time:1000});
+                return false;
+            }
+            if(!sort || isNaN(sort)){
+                layer.msg('请填写排序，并且为数字',{time:1000});
+                return false;
+            }
+        });
+    </script>
+</block>
+

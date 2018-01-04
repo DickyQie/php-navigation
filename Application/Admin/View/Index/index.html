@@ -1,1 +1,141 @@
- 
+<extend name="Common/common" />
+<block name="main">
+    <div id="page-wrapper" class="gray-bg dashbard-1">
+       
+        <div class="wrapper wrapper-content">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>高级分类管理</h5> <!--标题-->
+                        </div>
+                        <div class="ibox-content">
+                            <div class="row">
+                                <!--搜索开始-->
+                                <!--<form action="__SELF__" method="post" id="search">-->
+                                    <!--<div class="search" style="padding-left: 16px">-->
+                                        <!--<select name="course_type" id="course_id" class="col-sm-2">-->
+                                            <!--<option value="">请选择课程类型</option>-->
+                                            <!--<option value="0" <if condition="($course_type === 0)">selected</if> >特训营</option>-->
+                                            <!--<option value="1" <if condition="($course_type === 1)">selected</if> >体系课程</option>-->
+                                            <!--<option value="2" <if condition="($course_type === 2)">selected</if> >实战课程</option>-->
+                                        <!--</select>-->
+                                        <!--<select name="category_id" id="" class="col-sm-2">-->
+                                            <!--<option value="0">请选择课程分类</option>-->
+                                            <!--<volist name="category" id="vo">-->
+                                                <!--<option value="{$vo.entity_id}" <if condition="($vo.entity_id eq $category_id)">selected</if>-->
+                                                <!-->{$vo.cate_name}</option>-->
+                                            <!--</volist>-->
+                                        <!--</select>-->
+                                        <!--<div class="col-sm-3 input-group">-->
+                                            <!--<input type="text" class="form-control" placeholder="请输入课程名或者老师名" name="keyword" value="{$keyword}">-->
+                                            <!--<span class="input-group-btn">-->
+                                                <!--<button type="submit" class="btn btn-sm btn-primary" style="height: 34px"> 搜索</button>-->
+                                            <!--</span>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</form>-->
+                                <!--搜索结束-->
+
+                                <div class="col-sm-4">
+                                    <div class="input-button">
+                                        <a href="{:U('addCourse')}">
+                                        <button class="btn btn-primary add" type="button"><i class="fa fa-plus"></i>&nbsp;新增</button>
+                                        </a>
+                                        <button class="btn btn-warning delete-all" type="button" url="{:U('delAll')}"><i class="fa fa-minus "></i>&nbsp;删除</button>
+                                        <button class="btn btn-info    confirm updateSort" type="button"><i class="fa fa-pencil "></i>&nbsp;修改排序</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!--表格开始    -->
+                            <form action="{:U(GROUP_NAME.'/Course/updateSort')}" method="post" name="updateSort" id="updateSort" >
+                                <input type="hidden" name="page_num" value="{$_GET['p']}"/>
+                                <div class="table-responsive">
+                                    <table class="table  table-bordered table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th style="width: 35px;">
+                                                <input type="checkbox" id="checkAll" class="check-all">
+                                                <label for="checkAll"></label>
+                                            </th>
+                                            <th  >课程ID</th>
+                                            <th  >课程名称</th>
+                                            <th  >主讲教师</th>
+                                            <th  >课程分类</th>
+                                            <th  >是否推荐</th>
+                                            <th  >排序</th>
+                                            <th  >课程类型</th>
+                                            <th  >等级</th>
+                                            <th style="width: 100px">操作</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <foreach name="course" item="v">
+                                            <tr>
+                                                <td>
+                                                    <input class="ids regular-checkbox" type="checkbox" value="{$v.entity_id}" name="ids[]" id="check_{$v.entity_id}">
+                                                    <label for="check_{$v.entity_id}"></label>
+                                                </td>
+                                                <td> {$v.entity_id}</td>
+                                                <td> {$v.course_name}</td>
+                                                <td> {$v.main_teacher}</td>
+                                                <td>
+                                                    <foreach name="category" item="vo">
+                                                        <if condition="($vo['entity_id'] == $v['category_id'])">
+                                                            {$vo.cate_name}
+                                                        </if>
+                                                    </foreach>
+                                                </td>
+                                                <td> <if condition="$v['isRecommend'] egt 1">是<else/>否</if></td>
+                                                <td class="sort"> <input type="text"  value="{$v.sort}" style="width:80px"/></td>
+                                                <td>
+                                                    <switch name="v.course_type">
+                                                        <case value="0">特训营</case>
+                                                        <case value="1">体系课程</case>
+                                                        <case value="2">实战课程</case>
+                                                    </switch>
+                                                </td>
+                                                <td> {$v.level_price.level_name|default='无'}</td>
+                                                <td style="width: 80px"> <a href="{:U(GROUP_NAME.'/Course/edit','id='.$v['entity_id'])}">编辑</a>
+                                                    <a class="confirm" href="{:U(GROUP_NAME.'/Course/delete','id='.$v['entity_id'])}">删除</a>
+                                                </td>
+                                            </tr>
+                                        </foreach>
+                                        </tbody>
+                                    </table>
+                                    <!--分页开始-->
+                                    <div style="padding-top:15px;float: right; ">
+                                        <div class="page">{$page}</div>
+                                    </div>
+                                    <!--分页结束-->
+                                </div>
+                            </form>
+                            <!--表格结束-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--尾部-->
+        <include file="Common/admin:footer"/>
+    </div>
+
+    <script type="text/javascript">
+        //修改排序
+        $('.input-button .updateSort').click(function(){
+            var ids = $("input:checked");
+            if(!ids.length){
+                layer.msg('请选择操作数据');
+                return false;
+            }
+            ids.each(function(){
+                var sort = $(this).parent().siblings('.sort').children().attr('name',"sort[]");
+            });
+            $('#updateSort').submit();
+        });
+
+    </script>
+
+</block>
+

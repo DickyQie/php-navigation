@@ -1,0 +1,69 @@
+<extend name="Common/common" />
+<block name="main">
+    <div id="page-wrapper" class="gray-bg dashbard-1">
+        <include file="Common/nav-header"/> <!--顶部-->
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>添加分类</h5>
+                </div>
+                <div class="ibox-content">
+                    <form class="form-horizontal m-t " method="post" action="<{:U('add')}>">
+                        <input type="hidden" name='id' value="<{$_GET['id']}>">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">首页显示位置：</label>
+                            <div class="col-sm-3">
+                                <select name="layout">
+                                    <option value="left"   <if condition="($data.layout eq 'left')">   selected</if>>左侧</option>
+                                    <option value="bottom" <if condition="($data.layout eq 'bottom')"> selected</if>>底部</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">名称：</label>
+                            <div class="col-sm-3">
+                                <input  type="text" id="high_name" class="form-control" name="high_name" value="<{$data.high_name}>">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">排序：</label>
+                            <div class="col-sm-3">
+                                <input  type="text" id="sort" class="form-control" name="sort" value="<{$data.sort}>">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">是否显示：</label>
+                            <input type="radio"  value="0"  name="is_display" <if condition="($data.is_display neq 1)">checked </if> />
+                            否
+                            <input type="radio"  value="1"  name="is_display" <if condition="($data.is_display eq 1)">checked </if> />
+                            是
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-3">
+                                <button class="btn btn-primary" type="submit">提交</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--尾部-->
+        <include file="Common/admin:footer"/>
+    </div>
+
+<script>
+    $('form').submit(function(){
+        var name = $('#high_name').val();
+        var sort = $("#sort").val();
+        if(name == ''){
+            layer.msg('请填写名称',{time:1000});
+            return false;
+        }
+        if(!sort || isNaN(sort)){
+            layer.msg('请填写排序，并且为数字',{time:1000});
+            return false;
+        }
+    });
+</script>
+</block>
+
