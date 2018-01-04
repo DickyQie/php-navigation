@@ -1,0 +1,90 @@
+<extend name="Common/common" />
+<block name="main">
+    <div id="page-wrapper" class="gray-bg dashbard-1">
+        <include file="Common/nav-header"/> <!--顶部-->
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>添加热门网址</h5>
+                </div>
+                <div class="ibox-content">
+                    <form class="form-horizontal m-t " method="post" action="<{:U('add')}>" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">名称：</label>
+                            <div class="col-sm-3">
+                                <input  type="text" id="title" class="form-control" name="title" value="<{$data.title}>">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">链接地址：</label><span style="color:indianred">（示例：http://www.baidu.com ）</span>
+                            <div class="col-sm-3">
+                                <input  type="text" id="href" class="form-control" name="href" value="<{$data.href}>">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">类型：</label>
+                            <div class="col-sm-6">
+                                <input type="radio" name="type" value="0" <if condition="($data.type eq 0)"> checked </if> > 热门区
+                                <input type="radio" name="type" value="1" <if condition="($data.type eq 1)"> checked </if> > 广告区
+                                <input type="radio" name="type" value="2" <if condition="($data.type eq 2)"> checked </if> > 图片区
+                                <span style="color:indianred">（不同类型，首页显示在不同的位置）</span>
+                            </div>
+                        </div>
+                        <div class="form-group" id="picture" style="display: none">
+                            <label class="col-sm-3 control-label">图片：</label>
+                            <div class="col-sm-9">
+                                <input type="file" name="picture"/>
+                                <notempty name="data.picture">
+                                        <img width="80px" height="80px" src="<{$data.picture|get_cover_url}>">
+                                </notempty>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">是否推荐：</label>
+                            <div class="col-sm-6">
+                                <input type="radio" name="is_recommend" value="0" <if condition="($data.is_recommend neq 1)"> checked </if> > 否
+                                <input type="radio" name="is_recommend" value="1" <if condition="($data.is_recommend eq 1)" > checked </if> > 是
+                                <span style="color:indianred">（如果是推荐，则在首页颜色不同）</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">排序：</label>
+                            <div class="col-sm-3">
+                                <input  type="text" id="sort" class="form-control" name="sort" value="<{$data.sort}>">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-3">
+                                <input type="hidden" name='id' value="<{$_GET['id']}>">
+                                <button class="btn btn-primary" type="submit">提交</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+    $(function () {
+        var type = "{$data.type}";
+        if(type == 2){
+            $('#picture').show();
+        }else{
+            $('#picture').hide();
+        }
+
+        $('input[name=type]').each(function(){
+            $(this).click(function () {
+                if($(this).val() == 2){
+                    $('#picture').show();
+                }else{
+                    $('#picture').hide();
+                }
+            });
+        });
+    });
+</script>
+
+</block>
+

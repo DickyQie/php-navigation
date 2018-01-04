@@ -1,0 +1,110 @@
+<extend name="Common/common" />
+<block name="main">
+    <div id="page-wrapper" class="gray-bg dashbard-1">
+        <include file="Common/nav-header"/> <!--顶部-->
+        <div class="wrapper wrapper-content">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <ol class="breadcrumb">
+                                <li>
+                                    <strong><a href="<{:U('lists')}>" <if condition="($_GET['type'] eq 0)">style="color: #1ab394"</if> >热门网址</a></strong>
+                                </li>
+                                <li>
+                                    <strong><a href="<{:U('lists',array('type'=>1))}>" <if condition="($_GET['type'] eq 1)">style="color: #1ab394"</if>  >广告区</a></strong>
+                                </li>
+                                <li>
+                                    <strong><a href="<{:U('lists',array('type'=>2))}>" <if condition="($_GET['type'] eq 2)">style="color: #1ab394"</if>  >图片区</a></strong>
+                                </li>
+                            </ol>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="input-button">
+                                        <a href="<{:U('add')}>">
+                                            <button class="btn btn-primary add" type="button"><i class="fa fa-plus"></i>&nbsp;新增</button>
+                                        </a>
+                                        <button class="btn btn-warning delete-all" type="button" url="<{:U('delAll')}>"><i class="fa fa-minus "></i>&nbsp;删除</button>
+                                    </div>
+                                </div>
+                                <!--搜索开始-->
+                                <form method="post" action="__SELF__" >
+                                    <div class="col-sm-3">
+                                        <div class="input-group">
+                                            <input type="text" placeholder="请输入名称" class="input-sm form-control" name="keyword" value=<{$keyword}>>
+                                            <span class="input-group-btn">
+                                                <button type="submit" class="btn btn-sm btn-primary"> 搜索</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </form>
+                                <!--搜索结束-->
+                            </div>
+                            <!--表格开始    -->
+                            <form action="__SELF__" method="post" name="updateSort" id="updateSort" >
+                                <input type="hidden" name="page_num" value="<{$_GET['p']}>"/>
+                                <div class="table-responsive">
+                                    <table class="table  table-bordered table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th style="width: 35px;">
+                                                <input type="checkbox" id="checkAll" class="check-all">
+                                                <label for="checkAll"></label>
+                                            </th>
+                                            <!--<eq name="$_GET['type']" value="2"><th>图片</th></eq>-->
+                                            <if condition="($_GET['type'] eq 2)"><th>图片</th></if>
+                                            <th>ID</th>
+                                            <th>名称</th>
+                                            <th>链接地址</th>
+                                            <th>是否推荐</th>
+                                            <th>排序</th>
+                                            <th style="width: 100px">操作</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <foreach name="hot" item="vo">
+                                            <tr>
+                                                <td>
+                                                    <input class="ids regular-checkbox" type="checkbox" value="<{$vo.id}>" name="ids[]" id="check_<{$vo.entity_id}>">
+                                                    <label for="check_<{$vo.entity_id}>"></label>
+                                                </td>
+                                                <if condition="($_GET['type'] eq 2)">
+                                                    <td><img height="40px" width="80px" src="<{$vo.picture|get_cover_url}>" /></td>
+                                                </if>
+                                                <td> <{$vo.id}></td>
+                                                <td> <{$vo.title}></td>
+                                                <td> <{$vo.href}></td>
+                                                <td>
+                                                    <eq name="vo.is_recommend" value="1">
+                                                        是<else/>否
+                                                    </eq>
+                                                </td>
+                                                <td> <{$vo.sort}></td>
+                                                <td>
+                                                    <a href="<{:U('edit',array('id'=>$vo['id']))}>">编辑</a>
+                                                    <a class="confirm" href="<{:U('delete',array('id'=>$vo['id']))}>">删除</a>
+                                                </td>
+                                            </tr>
+                                        </foreach>
+                                        </tbody>
+                                    </table>
+                                    <!--分页开始-->
+                                    <div style="padding-top:15px;float: right; ">
+                                        <div class="page"><{$page}></div>
+                                    </div>
+                                    <!--分页结束-->
+                                </div>
+                            </form>
+                            <!--表格结束-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--尾部-->
+        <include file="Common/admin:footer"/>
+    </div>
+</block>
+
