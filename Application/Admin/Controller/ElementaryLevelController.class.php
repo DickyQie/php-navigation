@@ -4,6 +4,12 @@ namespace Admin\Controller;
 
 use Think\Controller;
 use Think\Page;
+
+/****
+ * 初级分类
+ * @author zhangqie
+ *
+ */
 class ElementaryLevelController extends Controller{
 	
 	function lists(){

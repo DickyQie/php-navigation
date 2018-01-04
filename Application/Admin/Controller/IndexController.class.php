@@ -13,7 +13,6 @@ use Think\Controller;
 class IndexController extends BaseController{
 	
 	function index(){
-		//$this->display();
 		$this->redirect("Datalist/lists");
 	}
 	

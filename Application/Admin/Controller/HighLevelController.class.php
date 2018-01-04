@@ -3,6 +3,13 @@
 namespace Admin\Controller;
 
 use Think\Controller;
+
+/****
+ * 
+ * 高级分类
+ * @author zhangqie
+ *
+ */
 class HighLevelController extends Controller{
 	
 	function lists(){

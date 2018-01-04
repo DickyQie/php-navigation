@@ -3,6 +3,12 @@
 namespace Admin\Controller;
 
 use Think\Controller;
+
+/****
+ * 中级分类
+ * @author zhangqie
+ *
+ */
 class MiddleLevelController extends Controller{
 	
 	

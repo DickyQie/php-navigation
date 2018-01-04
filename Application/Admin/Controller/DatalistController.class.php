@@ -3,6 +3,12 @@
 namespace Admin\Controller;
 
 use Think\Controller;
+
+/*****
+ * 数据管理
+ * @author zhangqie
+ *
+ */
 class DatalistController extends BaseController{
 	
 	
@@ -28,7 +34,9 @@ class DatalistController extends BaseController{
 		$show =$Page->show();
 		
 		
-		/* showdata($count);
+		/* 
+		 * 查看数据
+		 * showdata($count);
 		showdata($datamodel->getData($map, $Page)); */
 		
 		$this->assign('page',$show);

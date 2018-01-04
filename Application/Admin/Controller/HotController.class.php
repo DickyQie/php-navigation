@@ -4,6 +4,11 @@ namespace Admin\Controller;
 
 use Think\Controller;
 use Think\Page;
+/****
+ * 热门管理
+ * @author zhangqie
+ *
+ */
 class HotController extends Controller{
 	
 	function lists(){
