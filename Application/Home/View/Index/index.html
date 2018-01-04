@@ -1,1 +1,175 @@
- 
+<include file="Common/header" />
+<include file="Common/top" />   
+
+
+
+<div class="box l-article clearfix">
+
+    <div class="l-article_l">
+        <div class="box-leftbar" monkey="leftbar">
+            <div class="box-leftbar_inner">
+                <div monkey="service">
+                    <foreach name="higninfo" item="vo" key="key">
+                        <dl class="corner box-sidebar">
+                            <dt class="m"><span class="box-sidebar_title"><a href="javascript:;"><{$key}></a></span></dt>
+                            <dd class="m span-rows box-sidebar_content">
+                                <volist name="vo" id="left">
+                                    <span><a href="<{:U('more',array('middle_id'=>$left['id']))}>"><{$left.middle_name}></a></span>
+                                </volist>
+                            </dd>
+                        </dl>
+                    </foreach>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <div class="l-article_r">
+        <!--热门网址-->
+        <div class="corner box-hot" monkey="hot">
+            <div class="m span-rows box-hot_content">
+                <foreach name="gotr1" item="vo">
+                    <span><a href="<{$vo.href}>" <eq name="vo.is_recommend" value="1">class="recommend"</eq> ><{$vo.title}></a></span>
+                </foreach>
+            </div>
+        </div>
+        <!--热门网址结束-->
+
+        <!--广告位-->
+        <div class="span-rows box-adbar" monkey="ad">
+            <foreach name="gotr2" item="vo">
+                <span><a href='vo.href' target='_blank'><{$vo.title}></a></span>
+            </foreach>
+        </div>
+        <!--广告位结束-->
+
+        <!-- 右侧分类 开始 -->
+        <div class="box-sort" monkey="cool">
+            <ul class="m span-rows box-sort_content">
+                <foreach name="gotr3" item="vo" key="key" >
+                    <li>
+                        <span class="box-sort_title"><a href="<{:U('more',array('middle_id'=>$key))}>" ><{$key|get_middle_name_by_id}></a></span>
+                        <span class="box-sort_more"><a href="<{:U('more',array('middle_id'=>$key))}>" >更多&gt;&gt;</a></span>
+                        <volist name="vo" id="data">
+                            <span><a href="<{$data.href}>"><{$data.title}></a></span>
+                        </volist>
+                    </li>
+                </foreach>
+                <!--以下数据是为演示界面效果而生成，实际应用中可去掉-->
+              <!--   <li>
+                    <span class="box-sort_title"><a href="news.htm">新 闻</a></span>
+                    <span class="box-sort_more"><a href="news.htm">更多&gt;&gt;</a></span>
+                    <span><a href="http://news.sina.com.cn/">新浪新闻</a></span>
+                    <span><a href="http://news.sohu.com/">搜狐新闻</a></span>
+                    <span><a href="http://www.zaobao.com/">联合早报</a></span>
+                    <span><a href="http://cn.reuters.com/">路透中文网</a></span>
+                    <span><a href="http://www.huanqiu.com/">环球网</a></span>
+                    <span><a href="http://news.100daohang.cn/">今日新闻</a></span>
+                </li> -->
+                <li><span class="box-sort_title"><a href="stocknew.htm">财 经</a></span>
+                    <span class="box-sort_more"><a href="stocknew.htm">更多&gt;&gt;</a></span>
+                    <span><a href="http://www.eastmoney.com/">东方财富</a></span>
+                    <span><a href="http://finance.sina.com.cn/">新浪财经</a></span>
+                    <span><a href="http://www.jrj.com.cn/">金融界</a></span>
+                    <span><a href="http://www.1234567.com.cn/">天天基金</a></span>
+                    <span><a href="http://www.stockstar.com/">证券之星</a></span>
+                    <span><a href="http://business.sohu.com/">搜狐财经</a></span>
+                </li>
+                <li><span class="box-sort_title"><a href="gouwu.htm">购 物</a></span>
+                    <span class="box-sort_more"><a href="gouwu.htm">更多&gt;&gt;</a></span>
+                    <span><a href="http://ai.taobao.com">淘宝特卖</a></span>
+                    <span><a href="http://www.amazon.cn">亚马逊</a></span>
+                    <span><a href="http://p.yiqifa.com" class="tc-green">蘑菇街</a></span>
+                    <span><a href="http://p.yiqifa.com">1号店</a></span>
+                    <span><a href="http://p.yiqifa.com">当当网</a></span>
+                </li>
+                <li><span class="box-sort_title"><a href="shequ.htm">社 交</a></span>
+                    <span class="box-sort_more"><a href="shequ.htm">更多&gt;&gt;</a></span>
+                    <span><a href="http://weibo.com/">新浪微博</a></span>
+                    <span><a href="http://t.sohu.com/">搜狐微博</a></span>
+                    <span><a href="http://tieba.baidu.com/">百度贴吧</a></span>
+                    <span><a href="http://qzone.qq.com/">QQ空间</a></span>
+                    <span><a href="http://www.tianya.cn/">天涯社区</a></span>
+                    <span><a href="http://www.mop.com/">猫扑</a></span>
+                    <span><a href="http://www.renren.com/">人人网</a></span>
+                </li>
+                <li><span class="box-sort_title"><a href="shequ.htm">社 交</a></span>
+                    <span class="box-sort_more"><a href="shequ.htm">更多&gt;&gt;</a></span>
+                    <span><a href="http://weibo.com/">新浪微博</a></span>
+                    <span><a href="http://t.sohu.com/">搜狐微博</a></span>
+                    <span><a href="http://tieba.baidu.com/">百度贴吧</a></span>
+                    <span><a href="http://qzone.qq.com/">QQ空间</a></span>
+                    <span><a href="http://www.tianya.cn/">天涯社区</a></span>
+                    <span><a href="http://www.mop.com/">猫扑</a></span>
+                    <span><a href="http://www.renren.com/">人人网</a></span>
+                </li>
+            </ul>
+
+            <!--图片区-->
+            <ul class="m span-rows box-sort_content">
+                <h3> <span><a>休闲娱乐</a></span></h3>
+                <div class="flexslider carousel">
+                    <ul class="slides">
+                        <foreach name="picinfo" item="vo">
+                            <li>
+                                <a href="<{$vo.href}>"><img src="<{$Think.const.SITE_URL}><{$vo.picture}>"/></a>
+                                <span><{$vo.title}></span>
+                            </li>
+                        </foreach>
+                    </ul>
+                </div>
+                <!--轮播展示-->
+                <script type="text/javascript" src="__PUBLIC__/js/jquery.flexslider-min.js"></script>
+                <script type="text/javascript">
+                    $(function() {
+                        $(".flexslider").flexslider({
+                            animation: "slide",
+                            animationLoop: false,
+                            itemWidth: 210,
+                            itemMargin: 5,
+                            minItems: 5,
+                            maxItems: 4,
+                            animationLoop:true,
+                            slideshowSpeed:3000,
+                            // pausePlay: true
+                        });
+                    });
+                </script>
+            </ul>
+        </div>
+        <!-- 右侧分类 结束 -->
+
+        <!--底部开始-->
+        <div class="box box-bottom" monkey="footer">
+            <div class="box-tools">
+                <ul class="m span-rows box-tools_content">
+                    <foreach name="bottomdata" item="vo" key="key">
+                        <li>
+                            <span class="box-tools_title"><a href="javascript:;"><{$key}></a></span>
+                            <span class="box-tools_more"><a href="javascript:;">更多&gt;&gt;</a></span>
+                            <volist name="vo" id="bottom">
+                                <span><a href="<{$bottom.href}>"><{$bottom.title}></a></span>
+                            </volist>
+                        </li>
+                       
+                    </foreach>
+                     <!--以下数据是为演示界面效果而生成，实际应用中可去掉-->
+                     <li>
+                            <span class="box-tools_title"><a href="javascript:;">软件专区</a></span>
+                            <span class="box-tools_more"><a href="javascript:;">更多&gt;&gt;</a></span>
+                            <span><a href="">腾讯QQ</a></span>
+                            <span><a href="">PPTV</a></span>
+                            <span><a href="">迅雷</a></span>
+                            <span><a href="">金山毒霸</a></span>
+                            <span><a href="">搜狐影音</a></span>
+                        </li>
+                </ul>
+            </div>
+        </div>
+        <!--底部结束-->
+    </div>
+</div>
+
+<include file="Common/footer"/>
+
