@@ -3,6 +3,14 @@
 namespace Admin\Controller;
 
 use Think\Controller;
+
+/***
+ * 
+ * 用户登录
+ * @author zhangqie
+ * 
+ *
+ */
 class PublicController extends Controller{
 	
 	
@@ -30,9 +38,11 @@ class PublicController extends Controller{
 				/* 'fontttf'   => '4.ttf', */
 				'codeSet'   => '0123456789'   //正则
 		);
+		ob_clean();//避免上传服务器不显示验证码
 		$virfy=new \Think\Verify($config);
 		$virfy->entry();
 	}
+	
 	
 	public function checkLogin(){
 	  /**检测验证码是否正确**/
@@ -70,10 +80,6 @@ class PublicController extends Controller{
         	$res['message'] ="用户名或密码错误";
         	$this->ajaxReturn($res);
         } 
-	}
-	
-	function test($data){
-		
 	}
 	
 	

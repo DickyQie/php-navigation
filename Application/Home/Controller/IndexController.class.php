@@ -4,6 +4,11 @@ use Think\Controller;
 
 use Think\Model;
 
+/****
+ * 导航首页
+ * @author zhangqie
+ *
+ */
 class IndexController extends Controller {
 	
     public function index(){
@@ -12,10 +17,10 @@ class IndexController extends Controller {
     	
     	$model=new \Model\HotModel();
     	
-    	/*   showdata($this->getmiddledata());
-    	
-    	exit();   */
-    	
+    	/*打印查看数据 */
+    	 // showdata($this->getmiddledata());
+    	//程序终止执行，用于查看数据
+    	//exit(); 
     	
     	$this->assign("gotr1",$model->getdata());
     	$this->assign("gotr2",$model->getdata(1));
@@ -33,12 +38,17 @@ class IndexController extends Controller {
     	$this->display();
     }
     
-    
+    /***
+     * 查看变量路径信息
+     */
     function showpublic(){
     	echo __PUBLIC__;
     }
     
-    
+    /****
+     * 数据库获取数据
+     * @return Ambigous <mixed, boolean, string, NULL, multitype:, unknown, object>
+     */
     function getdata(){
     	
     	$info=D('High_level')->where("layout='left'")->order("sort asc")->select();

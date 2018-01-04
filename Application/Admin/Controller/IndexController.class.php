@@ -4,6 +4,12 @@ namespace Admin\Controller;
 
 use Think\Controller;
 
+
+/****
+ * 后台首页
+ * @author zhangqie
+ *
+ */
 class IndexController extends BaseController{
 	
 	function index(){
